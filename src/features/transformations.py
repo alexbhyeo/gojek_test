@@ -23,7 +23,7 @@ def hour_of_day(df: pd.DataFrame) -> pd.DataFrame:
 
 def remove_create_data(df: pd.DataFrame) -> pd.DataFrame:
     proc_data = df.copy()
-    proc_data = proc_data[proc_data['participant_status'] != 'ACCEPTED']
+    proc_data = proc_data[proc_data['participant_status'] != 'CREATED']
     print(proc_data.groupby("participant_status")["is_completed"].count())
     print(proc_data[proc_data["participant_status"] == "ACCEPTED"]["is_completed"].head(5))
     print(proc_data[proc_data["participant_status"] == "IGNORED"]["is_completed"].head(5))
