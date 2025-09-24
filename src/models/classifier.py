@@ -44,8 +44,30 @@ class SklearnClassifier(Classifier):
         print(pred)
         score = accuracy_score(label, pred)
         print('accuracy : ', score)
-        accuracy = {"accuracy": score}
-        return accuracy
+
+        cm = confusion_matrix(label, pred)
+
+        # Extract values
+        tn, fp, fn, tp = cm.ravel()
+        print(tn, fp, fn, tp)
+
+        precision = precision_score(label, pred)
+        recall = recall_score(label, pred)
+
+        print("precision : ",precision)
+        print("recall : ", recall)
+
+        metrics = {
+            "accuracy": score, 
+            "TP": int(tp), 
+            "TN": int(tn), 
+            "FN": int(fn), 
+            "FP": int(fp),
+            "precision": precision,
+            "recall" : recall
+            }
+        print(metrics)
+        return metrics
         
 
     def predict(self, df: pd.DataFrame):
