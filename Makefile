@@ -40,10 +40,12 @@ data:
 features:
 	@echo "Running feature engineering on dataset.."
 	${BINARIES}/python -m src.features.build_features
+	${BINARIES}/python -m src.features.analyse_features
 
 train:
 	@echo "Training classification model for allocation task.."
 	${BINARIES}/python -m src.models.train_model
+	${BINARIES}/python -m src.models.train_model_xgboost
 
 predict:
 	@echo "Performing model inference to identify best drivers.."
@@ -51,7 +53,7 @@ predict:
 
 test:
 	@echo "Running all unit tests.."
-	${BINARIES}/nosetests --nologcapture
+	PYTHONPATH=. pytest -v
 
 
 run: clean data features train predict test
